@@ -1,0 +1,41 @@
+# Prompt Settings
+autoload -U colors && colors	# Load colors
+autoload -Uz vcs_info # For git
+
+declare -a PROMPTS
+PROMPTS=(
+    "➜"
+    ""
+    "∮"
+    "∯"
+    "≎"
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+)
+RANDOM=$$$(date +%s)
+ignition=${PROMPTS[$RANDOM % ${#RANDOM[*]}+1]}
+# PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$fg[red]%}] %{$fg[magenta]%~}%~%{$fg[green]%} $ignition%{$reset_color%} %b "
+# PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$fg[red]%}] %{$fg[magenta]%~}%1~%{$fg[green]%} $ignition%{$reset_color%} %b "
+# PROMPT="%B% %{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%  %{$fg[magenta]%}%1~%{$fg[green]%} $ignition%{$reset_color%} %b "
+# PROMPT="%n@%m %~ %# "
+# PROMPT="%n@%m %~ $ "
+# eval "$(starship init zsh)"
+PROMPT="%F{blue}%n%f%F{white}@%f%F{magenta}%m%f %F{cyan}%~%f %F{green}➜%f "
+
+## Git Settings
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+# zstyle ':vcs_info:git:*' formats '%F{yellow}(%b)%r%f'
+# zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' formats ' %F{blue}%s(%f%F{magenta}%b%f%F{blue})%f'
+
+# Fetching programms
+# neofetch --ascii_distro arch 
+#neofetch
+# colorscript -r
